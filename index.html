@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhoenixAI 1기 Business Course 리뷰</title>
+    
+    <!-- Browser Tab Color and Theme -->
+    <meta name="theme-color" content="#FFF9C4">
+    <meta name="msapplication-TileColor" content="#FFF9C4">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Favicon and Tab Icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
@@ -51,6 +60,24 @@
             min-height: 100vh;
         }
 
+        /* Browser Tab Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FFF9C4;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FFD54F;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFC107;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -83,7 +110,7 @@
 
         /* About Section */
         .about {
-            background: #F8F9FA;
+            background: var(--pastel-yellow);
         }
 
         .about-grid {
@@ -96,7 +123,7 @@
         .about-text h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
-            color: var(--text-dark);
+            color: #000000;
             font-weight: 700;
         }
 
@@ -104,7 +131,7 @@
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 1.5rem;
-            color: #555;
+            color: #000000;
         }
 
         .stats {
@@ -190,7 +217,7 @@
 
         /* Portfolio Section */
         .portfolio {
-            background: #F8F9FA;
+            background: var(--pastel-pink);
         }
 
         .portfolio-grid {
@@ -213,20 +240,20 @@
         }
 
         .portfolio-item h4 {
-            color: #667eea;
+            color: #000000;
             margin-bottom: 1rem;
             font-size: 1.3rem;
             font-weight: 700;
         }
 
         .portfolio-item p {
-            color: var(--text-medium);
+            color: #000000;
             line-height: 1.6;
         }
 
         /* CEO Section */
         .ceo {
-            background: #FFFFFF;
+            background: var(--pastel-green);
             text-align: center;
         }
 
@@ -258,11 +285,11 @@
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
-            color: var(--text-dark);
+            color: #000000;
         }
 
         .ceo-title {
-            color: var(--text-medium);
+            color: #000000;
             font-size: 1.1rem;
             margin-bottom: 2rem;
             font-weight: 600;
@@ -271,7 +298,7 @@
         .ceo-description {
             text-align: left;
             line-height: 1.8;
-            color: #555;
+            color: #000000;
         }
 
         .ceo-description ul {
@@ -365,12 +392,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--pastel-yellow);
             backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid #FFD54F;
         }
 
         .nav-container {
@@ -385,10 +412,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #000000;
         }
 
         .nav-menu {
@@ -404,16 +428,16 @@
 
         .nav-menu a {
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
+            color: #000000;
+            font-weight: 700;
             transition: color 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 8px;
         }
 
         .nav-menu a:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
+            color: #000000;
+            background: rgba(255, 213, 79, 0.3);
         }
 
         /* Dropdown */
@@ -442,11 +466,12 @@
         .dropdown-content a {
             display: block;
             padding: 0.8rem 1.5rem;
-            color: var(--text-dark);
+            color: #000000;
             text-decoration: none;
             transition: all 0.3s ease;
             border-radius: 0;
             position: relative;
+            font-weight: 700;
         }
 
         .dropdown-content a::before {
@@ -468,7 +493,7 @@
 
         .dropdown-content a:hover {
             background: rgba(255, 255, 255, 0.1);
-            color: var(--text-dark);
+            color: #000000;
             padding-left: 2rem;
         }
 

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피닉스AI Business Basic Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 25%, #fd79a8 50%, #a29bfe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #6c5ce7 100%);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255, 255, 255, 0.03) 20px,
+                rgba(255, 255, 255, 0.03) 40px
+            );
+            animation: shimmer 20s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-page-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #FFD54F;
+            color: #000000;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(255, 213, 79, 0.3);
+        }
+
+        .main-page-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 213, 79, 0.4);
+            background: #FFC107;
+        }
+
+        .course-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-size: 1rem;
+            color: white;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-content {
+            padding: 50px 40px;
+        }
+
+        .course-overview {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .course-overview::before {
+            content: '🚀';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-overview h2 {
+            color: #2d3748;
+            font-size: 2rem;
+            margin: 20px 0 15px 0;
+            font-weight: 700;
+        }
+
+        .course-overview p {
+            color: #4a5568;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .weeks-timeline {
+            position: relative;
+            margin: 50px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #ff7675, #fd79a8, #a29bfe, #74b9ff);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .week-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .week-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .week-card {
+            width: 45%;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border: 3px solid;
+        }
+
+        .week-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .week-1 .week-card {
+            border-color: #ff7675;
+        }
+
+        .week-2 .week-card {
+            border-color: #fd79a8;
+        }
+
+        .week-3 .week-card {
+            border-color: #a29bfe;
+        }
+
+        .week-4 .week-card {
+            border-color: #74b9ff;
+        }
+
+        .week-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            z-index: 3;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .week-1 .week-icon {
+            background: linear-gradient(135deg, #ff7675, #e84393);
+        }
+
+        .week-2 .week-icon {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+        }
+
+        .week-3 .week-icon {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+
+        .week-4 .week-icon {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+        }
+
+        .week-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #2d3748;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .week-title {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .week-subtitle {
+            color: #718096;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .ai-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .ai-tool {
+            background: #f7fafc;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+
+        .activities {
+            margin-bottom: 15px;
+        }
+
+        .activities h4 {
+            color: #2d3748;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .activity-list {
+            list-style: none;
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .activity-list li {
+            padding: 4px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .activity-list li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            font-size: 0.8rem;
+        }
+
+        .automation-section {
+            background: linear-gradient(135deg, rgba(116, 185, 255, 0.1), rgba(168, 155, 254, 0.1));
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border-left: 4px solid #a29bfe;
+        }
+
+        .automation-section h4 {
+            color: #6c5ce7;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .automation-section p {
+            font-size: 0.85rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border-top: 5px solid;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card:nth-child(1) {
+            border-top-color: #ff7675;
+        }
+
+        .feature-card:nth-child(2) {
+            border-top-color: #fd79a8;
+        }
+
+        .feature-card:nth-child(3) {
+            border-top-color: #a29bfe;
+        }
+
+        .feature-card:nth-child(4) {
+            border-top-color: #74b9ff;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .feature-desc {
+            color: #718096;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .footer h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .timeline-line {
+                left: 30px;
+            }
+            
+            .week-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 80px;
+            }
+            
+            .week-card {
+                width: 100%;
+            }
+            
+            .week-icon {
+                left: 30px;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header" style="position: relative;">
+            <a href="index.html" class="main-page-btn">메인페이지로 이동</a>
+            <h1>피닉스AI 1기</h1>
+            <div class="subtitle">Business Basic Course</div>
+            <div class="course-badge">4주 완성 멀티미디어 AI 마스터</div>
+        </div>
+
+        <div class="main-content">
+            <div class="course-overview">
+                <h2>생성형 AI 완전 정복</h2>
+                <p>Text, Image, Video, Audio 모든 영역의 생성형 AI를 단계별로 학습하고 실무에 바로 적용할 수 있는 자동화 시스템까지 구축하는 종합 과정</p>
+            </div>
+
+            <div class="weeks-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="week-item week-1">
+                    <div class="week-card">
+                        <div class="week-number">1</div>
+                        <div class="week-title">Text 생성형 AI</div>
+                        <div class="week-subtitle">텍스트 기반 AI 도구 마스터</div>
+                        
+                        <div class="ai-tools">
+                            <span class="ai-tool">ChatGPT</span>
+                            <span class="ai-tool">Gemini</span>
+                            <span class="ai-tool">Claude</span>
+                            <span class="ai-tool">GPTs</span>
+                        </div>
+
+                        <div class="activities">
+                            <h4>📝 주요 실습</h4>
+                            <ul class="activity-list">
+                                <li>문서 요약 및 이메일 작성</li>
+                                <li>보고서 & 사업계획서 생성</li>
+                                <li>PPT 초안 및 회의록 작성</li>
+                                <li>연설문 및 프레젠테이션</li>
+                            </ul>
+                        </div>
+
+                        <div class="automation-section">
+                            <h4>🔄 자동화 실습</h4>
+                            <p>GPTs + Zapier 연결을 통한 웹 뉴스 AI 분류, 정리 및 자동 발행 시스템 구축</p>
+                        </div>
+                    </div>
+                    <div class="week-icon">📝</div>
+                </div>
+
+                <div class="week-item week-2">
+                    <div class="week-card">
+                        <div class="week-number">2</div>
+                        <div class="week-title">Image 생성형 AI</div>
+                        <div class="week-subtitle">비주얼 콘텐츠 제작의 혁신</div>
+                        
+                        <div class="ai-tools">
+                            <span class="ai-tool">DALL-E 3</span>
+                            <span class="ai-tool">Midjourney</span>
+                            <span class="ai-tool">GPTs</span>
+                        </div>
+
+                        <div class="activities">
+                            <h4>🎨 주요 실습</h4>
+                            <ul class="activity-list">
+                                <li>뷰티 & 패션 화보 제작</li>
+                                <li>AI 가상 모델 생성</li>
+                                <li>이모티콘 굿즈 디자인</li>
+                                <li>브랜딩 비주얼 콘텐츠</li>
+                            </ul>
+                        </div>
+
+                        <div class="automation-section">
+                            <h4>🔄 자동화 실습</h4>
+                            <p>GPTs + 외부 API (SERP API, Google API) 연동으로 텍스트 및 이미지 정보 자동 수집 시스템</p>
+                        </div>
+                    </div>
+                    <div class="week-icon">🎨</div>
+                </div>
+
+                <div class="week-item week-3">
+                    <div class="week-card">
+                        <div class="week-number">3</div>
+                        <div class="week-title">Video 생성형 AI</div>
+                        <div class="week-subtitle">동영상 콘텐츠 제작 마스터</div>
+                        
+                        <div class="ai-tools">
+                            <span class="ai-tool">Kling AI</span>
+                            <span class="ai-tool">GPTs</span>
+                            <span class="ai-tool">YouTube API</span>
+                        </div>
+
+                        <div class="activities">
+                            <h4>🎬 주요 실습</h4>
+                            <ul class="activity-list">
+                                <li>영화 PPL & 예고편 제작</li>
+                                <li>광고 영상 및 PPL 삽입</li>
+                                <li>특수효과 (판타지, 애니메이션)</li>
+                                <li>영화 패러디 콘텐츠</li>
+                            </ul>
+                        </div>
+
+                        <div class="automation-section">
+                            <h4>🔄 자동화 실습</h4>
+                            <p>GPTs + YouTube API 연동을 통한 키워드 기반 유튜브 영상 및 쇼츠 자동 요약 분류 시스템</p>
+                        </div>
+                    </div>
+                    <div class="week-icon">🎬</div>
+                </div>
+
+                <div class="week-item week-4">
+                    <div class="week-card">
+                        <div class="week-number">4</div>
+                        <div class="week-title">Audio 생성형 AI</div>
+                        <div class="week-subtitle">사운드 & 음성 콘텐츠 완성</div>
+                        
+                        <div class="ai-tools">
+                            <span class="ai-tool">Suno AI</span>
+                            <span class="ai-tool">Make.com</span>
+                        </div>
+
+                        <div class="activities">
+                            <h4>🎵 주요 실습</h4>
+                            <ul class="activity-list">
+                                <li>AI 성우 및 내레이션</li>
+                                <li>CF 음악 & 영화 음악</li>
+                                <li>콘텐츠별 맞춤 주제곡</li>
+                                <li>팟캐스트 음성 제작</li>
+                            </ul>
+                        </div>
+
+                        <div class="automation-section">
+                            <h4>🔄 자동화 실습</h4>
+                            <p>Make.com 활용 뉴스 사이트 링크 입력 → AI 요약 → 정기 자동 배송 서비스 구축</p>
+                        </div>
+                    </div>
+                    <div class="week-icon">🎵</div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-title">실무 즉시 적용</div>
+                    <div class="feature-desc">배운 내용을 바로 업무에 활용할 수 있는 실전 중심 커리큘럼</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-title">자동화 시스템</div>
+                    <div class="feature-desc">매주 다른 자동화 도구로 업무 효율성을 극대화하는 시스템 구축</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">멀티미디어 완성</div>
+                    <div class="feature-desc">텍스트부터 오디오까지 모든 미디어 타입의 AI 도구 마스터</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">비즈니스 성장</div>
+                    <div class="feature-desc">AI 활용으로 업무 생산성 향상과 새로운 수익 모델 창출</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>🎊 4주 만에 AI 전문가로 변신!</h3>
+            <p>모든 미디어 영역의 생성형 AI를 완벽하게 활용하여<br>비즈니스 혁신과 창의적 콘텐츠 제작의 새로운 차원을 경험하세요</p>
+        </div>
+    </div>
+</body>
+</html>
