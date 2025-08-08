@@ -1092,6 +1092,81 @@
         .course-card:nth-child(4) { animation-delay: 0.4s; }
         .course-card:nth-child(5) { animation-delay: 0.5s; }
         .course-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Chatbot Banner Styles */
+        .chatbot-banner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 600;
+            min-width: 200px;
+        }
+
+        .chatbot-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .chatbot-icon {
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .chatbot-text {
+            font-size: 0.9rem;
+        }
+
+        /* Custom GPT Chat Container */
+        #customgpt_chat {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 9999;
+            display: none;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        #customgpt_chat.active {
+            display: block;
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .chatbot-banner {
+                bottom: 15px;
+                right: 15px;
+                left: 15px;
+                min-width: auto;
+                justify-content: center;
+            }
+
+            #customgpt_chat {
+                bottom: 70px;
+                right: 15px;
+                left: 15px;
+                width: calc(100vw - 30px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -1679,6 +1754,15 @@
         </footer>
     </div>
 
+    <!-- Chatbot Banner -->
+    <div class="chatbot-banner" id="chatbotBanner">
+        <div class="chatbot-icon">🤖</div>
+        <div class="chatbot-text">AI 상담사와 대화하기</div>
+    </div>
+
+    <!-- Custom GPT Chat Container -->
+    <div id="customgpt_chat"></div>
+
     <script>
         // Enhanced scroll animations
         const observerOptions = {
@@ -1710,6 +1794,31 @@
                 // Reset any hover effects if needed
             });
         });
+
+        // Chatbot functionality
+        const chatbotBanner = document.getElementById('chatbotBanner');
+        const customgptChat = document.getElementById('customgpt_chat');
+        let isChatOpen = false;
+
+        chatbotBanner.addEventListener('click', () => {
+            if (!isChatOpen) {
+                customgptChat.classList.add('active');
+                isChatOpen = true;
+                chatbotBanner.style.display = 'none';
+            }
+        });
+
+        // Close chat when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isChatOpen && !customgptChat.contains(e.target) && !chatbotBanner.contains(e.target)) {
+                customgptChat.classList.remove('active');
+                isChatOpen = false;
+                chatbotBanner.style.display = 'flex';
+            }
+        });
     </script>
+    
+    <!-- Custom GPT Chat Script -->
+    <script src="https://cdn.customgpt.ai/js/embed.js" defer div_id="customgpt_chat" p_id="78483" p_key="70bff7b88b38483a3cdbd0a7b0514cee"></script>
 </body>
 </html>
