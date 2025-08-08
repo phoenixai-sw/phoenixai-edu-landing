@@ -1100,8 +1100,8 @@
             right: 20px;
             z-index: 10000;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 15px;
-            padding: 15px;
+            border-radius: 50px;
+            padding: 15px 20px;
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
             transition: all 0.3s ease;
             cursor: pointer;
@@ -1118,6 +1118,16 @@
             box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
         }
 
+        .chatbot-banner.minimized {
+            min-width: 60px;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .chatbot-banner.minimized .chatbot-text {
+            display: none;
+        }
+
         .chatbot-icon {
             font-size: 1.5rem;
             animation: pulse 2s infinite;
@@ -1131,24 +1141,42 @@
 
         .chatbot-text {
             font-size: 0.9rem;
+            transition: opacity 0.3s ease;
         }
 
         /* Custom GPT Chat Container */
         #customgpt_chat {
             position: fixed;
-            bottom: 80px;
-            right: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 9999;
             display: none;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             width: 800px;
             height: 600px;
         }
 
         #customgpt_chat.active {
+            display: block;
+        }
+
+        /* Chat overlay background */
+        .chat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            display: none;
+        }
+
+        .chat-overlay.active {
             display: block;
         }
 
@@ -1162,10 +1190,16 @@
                 justify-content: center;
             }
 
+            .chatbot-banner.minimized {
+                left: auto;
+                min-width: 50px;
+                padding: 12px;
+            }
+
             #customgpt_chat {
-                bottom: 70px;
-                right: 15px;
-                left: 15px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 width: calc(100vw - 30px);
                 height: 70vh;
             }
@@ -1772,6 +1806,9 @@
         <div class="chatbot-text">AI신승 세무사와 상담하기</div>
     </div>
 
+    <!-- Chat Overlay -->
+    <div class="chat-overlay" id="chatOverlay"></div>
+
     <!-- Custom GPT Chat Container -->
     <div id="customgpt_chat"></div>
 
@@ -1810,22 +1847,35 @@
         // Chatbot functionality
         const chatbotBanner = document.getElementById('chatbotBanner');
         const customgptChat = document.getElementById('customgpt_chat');
+        const chatOverlay = document.getElementById('chatOverlay');
         let isChatOpen = false;
 
         chatbotBanner.addEventListener('click', () => {
             if (!isChatOpen) {
                 customgptChat.classList.add('active');
+                chatOverlay.classList.add('active');
+                chatbotBanner.classList.add('minimized');
                 isChatOpen = true;
-                chatbotBanner.style.display = 'none';
             }
         });
 
-        // Close chat when clicking outside
-        document.addEventListener('click', (e) => {
-            if (isChatOpen && !customgptChat.contains(e.target) && !chatbotBanner.contains(e.target)) {
+        // Close chat when clicking overlay
+        chatOverlay.addEventListener('click', () => {
+            if (isChatOpen) {
                 customgptChat.classList.remove('active');
+                chatOverlay.classList.remove('active');
+                chatbotBanner.classList.remove('minimized');
                 isChatOpen = false;
-                chatbotBanner.style.display = 'flex';
+            }
+        });
+
+        // Close chat when clicking outside chat window
+        document.addEventListener('click', (e) => {
+            if (isChatOpen && !customgptChat.contains(e.target) && !chatbotBanner.contains(e.target) && !chatOverlay.contains(e.target)) {
+                customgptChat.classList.remove('active');
+                chatOverlay.classList.remove('active');
+                chatbotBanner.classList.remove('minimized');
+                isChatOpen = false;
             }
         });
     </script>
